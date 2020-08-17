@@ -1,18 +1,18 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+    <div style="width: 50%;padding: 2rem;">
+        <span class="text-h1">Brewing</span>
+      <v-radio-group v-model="column">
+      <v-radio label="Filter" value="radio-1"/>
+      <v-radio label="French Press" value="radio-2"/>
+    </v-radio-group>
+    </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
+import Vue from "vue";
 export default Vue.extend({
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-});
+     data: () => ({
+      items: ["a", "b"]
+    })
+})
 </script>
