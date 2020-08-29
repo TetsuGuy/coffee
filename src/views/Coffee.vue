@@ -39,13 +39,17 @@
 </template>
 
 <script lang="ts">
+
+// todo: make 1 view per interaction: brew method, brew strength, coffee amount (1-9 selection is better than a slider)
+// remove sliders and use just big buttons with icons and text instead
+
 import Vue from "vue"
 
 export default Vue.extend({
   data: () => {return {
           amountCoffeeCups: 1,
-          preparationMethodChosen: 0,
-          coffeeStrengthChosen: 1
+          preparationMethodChosen: 0,  // todo: enum
+          coffeeStrengthChosen: 1  // todo: enum
   }},
   computed: {
     coffeePreparationIcon(): string {
