@@ -45,25 +45,40 @@
 
 import Vue from "vue"
 
+// brew: 1:13-19
+// press: 1:10-16
+
+enum brewMethod {
+  filter,
+  press
+}
+
+enum strenght {
+  mild,
+  medium,
+  strong
+}
+
+
 export default Vue.extend({
   data: () => {return {
           amountCoffeeCups: 1,
-          preparationMethodChosen: 0,  // todo: enum
-          coffeeStrengthChosen: 1  // todo: enum
+          preparationMethodChosen: brewMethod.filter, 
+          coffeeStrengthChosen: strenght.mild
   }},
   computed: {
     coffeePreparationIcon(): string {
-      return this.preparationMethodChosen === 0 ? "fa fa-filter" : "fa fa-database"
+      return this.preparationMethodChosen === brewMethod.filter ? "fa fa-filter" : "fa fa-database"
     },
     coffeeStrengthColor(): string {
       switch(this.coffeeStrengthChosen) {
-        case 0: 
-          return "#582200"
-        case 1: 
-          return "#311300" 
-        case 2:
+        case strenght.mild: 
+          return "#582200"  // light brown
+        case strenght.medium: 
+          return "#311300"  // medium brown
+        case strenght.strong:
         default: 
-          return "#210d00"
+          return "#210d00"  // dark brown
       }
     }
   }
