@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
+import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
-    name: 'ROUTE_COFFEE_HOME',
-    component: () => import(/* webpackChunkName: "coffee" */ '../views/Home.vue'),
+    path: "/",
+    name: "ROUTE_COFFEE_HOME",
+    component: () => import(/* webpackChunkName: "coffee" */ "../views/Coffee.vue"),
   },
 ];
 
