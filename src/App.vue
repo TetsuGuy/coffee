@@ -11,7 +11,7 @@ export default Vue.extend({
 </script>
 
 <style>
-body {
+body, html {
   height: 100%;
   background: #110400;
 }

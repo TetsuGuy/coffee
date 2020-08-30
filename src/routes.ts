@@ -10,9 +10,14 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "coffee" */ "./views/BrewMethod.vue"),
   },
   {
-    path: "strength",
+    path: "/strength",
     name: "ROUTE_COFFEE_STRENGTH",
     component: () => import(/* webpackChunkName: "coffee" */ "./views/Strength.vue"),
+  },
+  {
+    path: "/amount",
+    name: "ROUTE_COFFEE_AMOUNT",
+    component: () => import(/* webpackChunkName: "coffee" */ "./views/CupSelection.vue"),
   },
 ];
 
