@@ -1,31 +1,18 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-    </v-app-bar>
-
-    <v-main>
-      <coffee/>
-    </v-main>
-  </v-app>
+  <router-view/>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Coffee from './views/Coffee.vue';
 
 export default Vue.extend({
-  name: 'App',
-
-  components: {
-    Coffee,
-  },
-
-  data: () => ({
-    //
-  }),
+  name: 'App'
 });
 </script>
+
+<style>
+body {
+  height: 100%;
+  background: #110400;
+}
+</style>
