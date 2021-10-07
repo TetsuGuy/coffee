@@ -19,6 +19,11 @@ const routes: RouteConfig[] = [
     name: "ROUTE_COFFEE_AMOUNT",
     component: () => import(/* webpackChunkName: "coffee" */ "./views/CupSelection.vue"),
   },
+  {
+    path: "/amount",
+    name: "ROUTE_COFFEE_RESULT",
+    component: () => import(/* webpackChunkName: "coffee" */ "./views/Result.vue"),
+  },
 ];
 
 const router = new VueRouter({

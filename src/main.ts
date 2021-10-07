@@ -8,11 +8,8 @@ Vue.config.productionTip = false;
 
 import "./style.scss"
 
-import vuetify from './plugins/vuetify';
-
 new Vue({
   router,
   store,
-  vuetify,
   render: (h) => h(App)
 }).$mount("#app");

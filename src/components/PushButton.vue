@@ -7,7 +7,7 @@
     >
         <span class="push-button__text" :style="{fontSize: fontSize}" >{{text}}</span>
         <slot/>
-        <ghost-hand offsetY="50px" />
+        <ghost-hand v-if="hasGhostHand" offsetY="50px" />
     </div>
 </div>
     
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import tinycolor from "tinycolor2"
-import Vue from 'vue'
+import Vue from "vue"
 import GhostHand from "../components/GhostHand.vue"
 
 export default Vue.extend({
@@ -42,6 +42,10 @@ export default Vue.extend({
         fontSize: {
             type: String,
             default: "xxx-large"
+        },
+        hasGhostHand: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -72,7 +76,7 @@ export default Vue.extend({
                 const child = btn.firstElementChild as HTMLElement
                 child.style.paddingTop = "initial"
 
-                this.$emit('click')
+                this.$emit("click")
             }, this.delay)
         }
     }

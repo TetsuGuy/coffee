@@ -1,27 +1,25 @@
 <template>
     <div>
-        <h1 style="font-size: xxx-large;font-style: italic;color: #ffe67f;">How many cups?</h1>
+        <h1 class="text-header">How many cups?</h1>
         <div class="button-panel">
-            <push-button color="#ffe75d" text="1"/>
-            <push-button color="#ffe75d" text="2"/>
-            <push-button color="#ffe75d" text="3"/>
-            <push-button color="#ffe75d" text="4"/>
-            <push-button color="#ffe75d" text="5"/>
-            <push-button color="#ffe75d" text="6"/>
-            <push-button color="#ffe75d" text="7"/>
-            <push-button color="#ffe75d" text="8"/>
-            <push-button color="#ffe75d" text="9"/>
+            <push-button :key="i" v-for="i in [1,2,3,4,5,6,7,8,9]" color="#ffe75d" :text="`${i}`" @click="clickCupAmount(i)"/>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue"
 import PushButton from "../components/PushButton.vue"
 export default Vue.extend({
   components: {
       PushButton
-  }  
+  },
+  methods: {
+      clickCupAmount(amount: number) {
+          this.$store.commit("setCupCount", amount)
+          this.$router.push({name: "ROUTE_COFFEE_RESULT"})
+      }
+  }
 })
 </script>
 
@@ -29,9 +27,15 @@ export default Vue.extend({
 .button-panel {
     display: inline-flex;
     flex-wrap: wrap; 
-    width: 500px;
+    max-width: 500px;
+    width: 100vw;
+    justify-content: space-around;
+
+    .push-button {
+        margin: auto;
+    }
     .push-button__shell {
-        margin: 1rem;
+        margin: 0.2rem;
     }
 }
 </style>
