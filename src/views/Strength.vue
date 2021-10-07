@@ -4,12 +4,12 @@
             <h1 class="text-header">How strong is your coffee ?</h1>
         </div>
         <div class="column">
-            <v-slider
-                hint="Im a hint"
-                max="50"
-                min="-50"
-            ></v-slider>
-            <br />
+            <push-button @click="clickStrength(1)" text="MILD" fontSize="large"/>
+        </div>
+        <div class="column">
+             <push-button @click="clickStrength(2)" text="MEDIUM" fontSize="large"/>
+        </div>
+        <div class="column">
             <push-button @click="clickStrength(3)" text="STRONG" fontSize="large"/>
         </div>
     </div>
@@ -17,11 +17,7 @@
 
 <script lang="ts">
 import Vue from "vue"
-import PushButton from "../components/PushButton.vue"
 export default Vue.extend({
-    components: {
-        PushButton
-    },
     methods: {
         clickStrength(strength: number) {
             this.$store.commit("setBrewStrength", strength)

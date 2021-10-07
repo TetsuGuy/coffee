@@ -9,11 +9,7 @@
 
 <script lang="ts">
 import Vue from "vue"
-import PushButton from "../components/PushButton.vue"
 export default Vue.extend({
-  components: {
-      PushButton
-  },
   methods: {
       clickCupAmount(amount: number) {
           this.$store.commit("setCupCount", amount)

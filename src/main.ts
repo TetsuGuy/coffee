@@ -1,12 +1,15 @@
-import Vue from "vue";
-import App from "./App.vue";
-import "./registerServiceWorker";
+import Vue from "vue"
+import App from "./App.vue"
+import "./registerServiceWorker"
 import router from "./routes"
-import store from "./store";
+import store from "./store"
+import PushButton from "./components/PushButton.vue"
 
 Vue.config.productionTip = false;
 
 import "./style.scss"
+
+Vue.component("PushButton", PushButton)
 
 new Vue({
   router,

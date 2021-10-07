@@ -16,12 +16,8 @@
 
 <script lang="ts">
 import Vue from "vue"
-import PushButton from "../components/PushButton.vue"
 export default Vue.extend({
     name: "VueBrewMethod",
-    components: {
-        PushButton
-    },
     methods: {
         clickChoice(choice: number) {
             this.$store.commit("setBrewMethod", choice)
