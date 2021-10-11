@@ -2,8 +2,8 @@
 <div class="push-button__shell" :style="{ height: sizeShell, width: sizeShell }">
     <div ref="button" 
         @click="handleClick" 
-        class="push-button" 
-        :style="{height: size, width: size, background: color, boxShadow: '0px 10px 0px 0px '+this.colorDarker, left: 'calc(50% - 50px)',  top: 'calc(50% - 57px)' }"
+        class="push-button metal radial"
+        :style="{height: size, width: size, background: color, boxShadow: '0px 3px 0px 0px '+this.colorDarker, left: 'calc(50% - 50px)',  top: 'calc(50% - 57px)' }"
     >
         <span class="push-button__text" :style="{fontSize: fontSize}" >{{text}}</span>
         <slot/>
@@ -37,11 +37,11 @@ export default Vue.extend({
         },
         size: {
             type: String,
-            default: "100px"
+            default: "75px"
         },
         fontSize: {
             type: String,
-            default: "xxx-large"
+            default: "large"
         },
         hasGhostHand: {
             type: Boolean,
@@ -50,7 +50,7 @@ export default Vue.extend({
     },
     computed: {
         colorDarker(): string {
-            return tinycolor(this.color).darken(30).toHexString()
+            return tinycolor(this.color).darken(40).toHexString()
         },
         sizeShell(): string {
             return `calc(1.3*${this.size})`
@@ -60,7 +60,7 @@ export default Vue.extend({
         async handleClick() {
             const btn = this.$refs.button as HTMLDivElement
             btn.style.marginTop = "5px"
-            btn.style.boxShadow = `inset 0px 10px 0px 0px ${this.colorDarker}`
+            btn.style.boxShadow = `inset 0px 3px 0px 0px ${this.colorDarker}`
             btn.style.filter = "none"
             const child = btn.firstElementChild as HTMLElement
             child.style.paddingTop = "5px"
@@ -71,7 +71,7 @@ export default Vue.extend({
             setTimeout(() => {
                 const btn = this.$refs.button as HTMLDivElement
                 btn.style.marginTop = "0px"
-                btn.style.boxShadow = `0px 10px 0px 0px ${this.colorDarker}`
+                btn.style.boxShadow = `0px 3px 0px 0px ${this.colorDarker}`
                 btn.style.filter = "drop-shadow(4px -1px 4px black)"
                 const child = btn.firstElementChild as HTMLElement
                 child.style.paddingTop = "initial"
@@ -87,14 +87,13 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .push-button__shell {
     position: relative;
-    background: url("~@/assets/metal.jpg");
-    border: 2px solid grey;
-    border-radius: 50%;
 }
 
 .push-button__text {
     transform: scaleY(1.2);
     margin-top: 6px;
+    font-family: monospace;
+    font-style: normal;
 }
 
 .push-button {
@@ -103,7 +102,7 @@ export default Vue.extend({
     display: flex;
     border: 1px solid #5b5b5b;
     border-radius: 50%;
-    box-shadow: 0px 10px 0px 0px #5b5b5b;
+    box-shadow: 0px 3px 0px 0px #5b5b5b;
     filter: drop-shadow(4px -1px 4px black);
     &>* {
         margin: auto;

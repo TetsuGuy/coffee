@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, {Route, RouteConfig} from "vue-router";
 
 Vue.use(VueRouter);
 
@@ -18,12 +18,7 @@ const routes: RouteConfig[] = [
     path: "/amount",
     name: "ROUTE_COFFEE_AMOUNT",
     component: () => import(/* webpackChunkName: "coffee" */ "./views/CupSelection.vue"),
-  },
-  {
-    path: "/amount",
-    name: "ROUTE_COFFEE_RESULT",
-    component: () => import(/* webpackChunkName: "coffee" */ "./views/Result.vue"),
-  },
+  }
 ];
 
 const router = new VueRouter({
@@ -31,3 +26,17 @@ const router = new VueRouter({
 });
 
 export default router;
+
+
+export function routeToText(route: Route): string {
+  switch (route.name) {
+    case "ROUTE_COFFEE_BREW_METHOD":
+      return "SELECT BREW METHOD"
+    case "ROUTE_COFFEE_STRENGTH":
+      return "SELECT STRENGTH"
+    case "ROUTE_COFFEE_AMOUNT":
+      return "HOW MANY CUPS"
+    default:
+      return ""
+  }
+}

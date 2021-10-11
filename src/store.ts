@@ -25,5 +25,23 @@ export default new Vuex.Store({
     setCupCount(state: CoffeeState, val: number ) {
        state.cupCount = val
     },
+  },
+  getters: {
+    amountWater(state: CoffeeState): number {
+      return state.cupCount * 150
+    },
+    ratio(state: CoffeeState): number {
+      return 1 / (9 + state.brewStrength)
+    },
+    amountCoffeeBeans(state: CoffeeState): number {
+      return Math.round(state.cupCount * 150 / (9 + state.brewStrength))
+    },
+    result(state: CoffeeState, getters: any): string {
+      if(state.brewMethod && state.brewStrength && state.cupCount) {
+        return `Water: ${getters.amountWater}ml,<br>Coffee: ${getters.amountCoffeeBeans}g`
+      } else {
+        return ""
+      }
+    }
   }
 });
