@@ -6,8 +6,6 @@ import store from "./store"
 import PushButton from "./components/PushButton.vue"
 Vue.config.productionTip = false;
 
-import "./style/crt.scss"
-import "./style/metal.scss"
 import "./style.scss"
 
 Vue.component("PushButton", PushButton)

@@ -6,14 +6,16 @@ Vue.use(Vuex);
 interface CoffeeState {
   brewMethod: number,
   brewStrength: number,
-  cupCount: number
+  cupCount: number,
+  loading: boolean
 }
 
 export default new Vuex.Store({
   state: {
     brewMethod: 0,
     brewStrength: 0,
-    cupCount: 0
+    cupCount: 0,
+    loading: false
   } as CoffeeState,
   mutations: {
     setBrewMethod(state: CoffeeState, val: number ) {
@@ -25,6 +27,9 @@ export default new Vuex.Store({
     setCupCount(state: CoffeeState, val: number ) {
        state.cupCount = val
     },
+    setLoading(state: CoffeeState, val: boolean) {
+      state.loading = val
+    }
   },
   getters: {
     amountWater(state: CoffeeState): number {
@@ -37,7 +42,7 @@ export default new Vuex.Store({
       return Math.round(state.cupCount * 150 / (9 + state.brewStrength))
     },
     result(state: CoffeeState, getters: any): string {
-      if(state.brewMethod && state.brewStrength && state.cupCount) {
+      if (state.brewMethod && state.brewStrength && state.cupCount) {
         return `Water: ${getters.amountWater}ml,<br>Coffee: ${getters.amountCoffeeBeans}g`
       } else {
         return ""

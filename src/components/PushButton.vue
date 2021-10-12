@@ -1,22 +1,31 @@
 <template>
-<div class="push-button__shell" :style="{ height: sizeShell, width: sizeShell }">
-    <div ref="button" 
-        @click="handleClick" 
-        class="push-button metal radial"
-        :style="{height: size, width: size, background: color, boxShadow: '0px 3px 0px 0px '+this.colorDarker, left: 'calc(50% - 50px)',  top: 'calc(50% - 57px)' }"
-    >
-        <span class="push-button__text" :style="{fontSize: fontSize}" >{{text}}</span>
-        <slot/>
-        <ghost-hand v-if="hasGhostHand" offsetY="50px" />
+    <div>
+        <div :style="{width: size, height: size}" class="push-button__shell is-round">
+            <div ref="button"
+                 @click="handleClick"
+                 class="push-button is-round h-100"
+                 :style="style"
+            >
+                <div class="push-button__inner is-flex is-round h-100">
+                    <span v-if="text" class="push-button__text m-auto">{{text}}</span>
+                    <slot/>
+                    <ghost-hand v-if="hasGhostHand" offsetY="50px" />
+                    <audio ref="player" src="@/assets/switch.wav"/>
+                </div>
+            </div>
+        </div>
+        <div v-if="label" class="push-button__text-label">
+            {{ label }}
+        </div>
     </div>
-</div>
-    
 </template>
 
 <script lang="ts">
 import tinycolor from "tinycolor2"
 import Vue from "vue"
 import GhostHand from "../components/GhostHand.vue"
+const BoxShadowSize = "0px 3px 0px 0px"
+const ButtonPushStateClassName = "push-button--down"
 
 export default Vue.extend({
     components: {
@@ -27,9 +36,13 @@ export default Vue.extend({
             type: String,
             default: undefined
         },
+        label: {
+            type: String,
+            default: undefined
+        },
         delay: {
             type: Number,
-            default: 1000
+            default: 500
         },
         color: {
             type: String,
@@ -37,7 +50,7 @@ export default Vue.extend({
         },
         size: {
             type: String,
-            default: "75px"
+            default: "100px"
         },
         fontSize: {
             type: String,
@@ -46,38 +59,50 @@ export default Vue.extend({
         hasGhostHand: {
             type: Boolean,
             default: false
+        },
+        textInside: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
         colorDarker(): string {
             return tinycolor(this.color).darken(40).toHexString()
         },
-        sizeShell(): string {
-            return `calc(1.3*${this.size})`
+        boxShadow(): string {
+            return `${BoxShadowSize} ${this.colorDarker}`
+        },
+        style(): Partial<CSSStyleDeclaration> {
+            return {
+                background: this.color,
+                boxShadow: this.boxShadow,
+                fontSize: this.fontSize
+            }
         }
     },
     methods: {
         async handleClick() {
+            this.playSound()
             const btn = this.$refs.button as HTMLDivElement
-            btn.style.marginTop = "5px"
-            btn.style.boxShadow = `inset 0px 3px 0px 0px ${this.colorDarker}`
-            btn.style.filter = "none"
-            const child = btn.firstElementChild as HTMLElement
-            child.style.paddingTop = "5px"
-
+            btn.classList.add(ButtonPushStateClassName)
+            btn.style.boxShadow = `inset ${this.boxShadow}`
+            this.$emit("push-start")
             await this.emitClick()
         },
         emitClick() {
             setTimeout(() => {
                 const btn = this.$refs.button as HTMLDivElement
-                btn.style.marginTop = "0px"
-                btn.style.boxShadow = `0px 3px 0px 0px ${this.colorDarker}`
-                btn.style.filter = "drop-shadow(4px -1px 4px black)"
-                const child = btn.firstElementChild as HTMLElement
-                child.style.paddingTop = "initial"
-
-                this.$emit("click")
+                btn.classList.remove(ButtonPushStateClassName)
+                btn.style.boxShadow = this.boxShadow
+                setTimeout(() => {
+                    this.$emit("push-end")
+                }, this.delay)
             }, this.delay)
+        },
+        playSound() {
+            const player = this.$refs.player as HTMLAudioElement
+
+            player.play()
         }
     }
 })
@@ -85,28 +110,32 @@ export default Vue.extend({
 
 
 <style lang="scss" scoped>
+.push-button__text-label {
+    background: black;
+    color: white;
+    text-align: center;
+    margin: 0 0.25rem;
+    height: 25px;
+}
 .push-button__shell {
-    position: relative;
+    background: url("~@/assets/metal.jpg");
+    border: 2px solid #d7d7d7;
+    padding: 0.5rem;
 }
-
-.push-button__text {
-    transform: scaleY(1.2);
-    margin-top: 6px;
-    font-family: monospace;
-    font-style: normal;
-}
-
 .push-button {
-    position: absolute;
-    transform: scaleY(0.9);
-    display: flex;
-    border: 1px solid #5b5b5b;
-    border-radius: 50%;
-    box-shadow: 0px 3px 0px 0px #5b5b5b;
     filter: drop-shadow(4px -1px 4px black);
-    &>* {
+    &--down {
+        filter: none;
+        .push-button__text {
+            padding-top: 5px;
+        }
+    }
+    &__text {
+        font-family: monospace;
+        font-style: normal;
+    }
+    &__inner > * {
         margin: auto;
-        font-weight: bold;
     }
 }
 </style>
